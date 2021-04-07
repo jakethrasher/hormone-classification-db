@@ -67,8 +67,8 @@ describe('app routes',()=>{
 
         const data = await request(app)
             .get('/api/v1/hormones/1')
-
-        expect(data.body[0]).toEqual(fsh)
+        
+        expect(data.body).toEqual(fsh)
     })
     
 
