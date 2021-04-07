@@ -39,7 +39,7 @@ describe('app routes',()=>{
                     sourceOrgan:'posterior pituitary',
                     targetOrgan:'kidney tubules/smooth muscle in arterioles',
                     physiologicalAction:'regulates blood pressure by causing water reabsorption',
-                    structure:'peptide hormone'
+                    structure:'peptide'
             }),
             Hormone.create({
                 hormone:'follicle stimulating hormone(FSH)',
@@ -69,6 +69,31 @@ describe('app routes',()=>{
             .get('/api/v1/hormones/1')
         
         expect(data.body).toEqual(fsh)
+    })
+
+    it('updates physiological action for a single hormone', async()=>{
+        const insulin = await Hormone.create({
+            hormone:'insulin',
+            sourceOrgan:'adrenal cortex',
+            targetOrgan:'liver, skeletal muscle, adipose tissue',
+            physiologicalAction:'homeostatic regulation of extracellular glucose',
+            structure:'peptide'
+            })
+
+        const data = await request(app)
+            .put('/api/v1/hormones/1')
+            .send({physiologicalAction:'Homeostatic regulation of extracellular glucose. Also affects synthesis of proteies in a variety of tissues'})
+        
+        console.log(data.body)
+
+        expect(data.body).toEqual({
+            id:expect.any(String),
+            hormone:'insulin',
+            sourceOrgan:'adrenal cortex',
+            targetOrgan:'liver, skeletal muscle, adipose tissue',
+            physiologicalAction:'Homeostatic regulation of extracellular glucose. Also affects synthesis of proteies in a variety of tissues',
+            structure:'peptide'
+        })
     })
     
 
