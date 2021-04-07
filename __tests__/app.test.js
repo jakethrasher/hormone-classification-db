@@ -83,8 +83,6 @@ describe('app routes',()=>{
         const data = await request(app)
             .put('/api/v1/hormones/1')
             .send({physiologicalAction:'Homeostatic regulation of extracellular glucose. Also affects synthesis of proteies in a variety of tissues'})
-        
-        console.log(data.body)
 
         expect(data.body).toEqual({
             id:expect.any(String),
@@ -94,6 +92,20 @@ describe('app routes',()=>{
             physiologicalAction:'Homeostatic regulation of extracellular glucose. Also affects synthesis of proteies in a variety of tissues',
             structure:'peptide'
         })
+    })
+
+    it('should delete a hormone of given id', async()=>{
+        const insulin = await Hormone.create({
+            hormone:'insulin',
+            sourceOrgan:'adrenal cortex',
+            targetOrgan:'liver, skeletal muscle, adipose tissue',
+            physiologicalAction:'homeostatic regulation of extracellular glucose',
+            structure:'peptide'
+            })
+
+        const data = await request(app)
+            .delete('/api/v1/hormones/1')
+        expect(data.body).toEqual(insulin)
     })
     
 
