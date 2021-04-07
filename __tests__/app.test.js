@@ -25,10 +25,23 @@ describe('app routes',()=>{
                 hormone:'follicle stimulating hormone(FSH)',
                 sourceOrgan:'anterior pituitary',
                 targetOrgan:'ovaries/testes',
-                physiologicalAction:'In females, ovarian follicle growth, and estrogen secretion. Spermatogenesis in males',
+                physiologicalAction:'Ovarian follicle growth and estrogen secretion. Spermatogenesis.',
                 structure:'glycoprotein'
             })
 
+        expect(data.body).toEqual({
+            id:expect.any(String),
+            hormone:expect.any(String),
+            sourceOrgan:expect.any(String),
+            targetOrgan:expect.any(String),
+            physiologicalAction:expect.any(String),
+            structure:expect.any(String),
+    })
+    })
+    it('gets all hormone data', async()=>{
+        const data = await request(app)
+            .get('/api/v1/hormones')
+            
         expect(data.body).toEqual({
             id:expect.any(String),
             hormone:expect.any(String),
