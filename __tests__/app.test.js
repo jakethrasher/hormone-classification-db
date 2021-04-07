@@ -6,6 +6,7 @@ const Hormone = require('../lib/models/Hormone');
 
 
 describe('app routes',()=>{
+    const hormones = 
     beforeAll(()=>{
         return setup(pool).then(()=>{
             return Hormone.create({
@@ -39,10 +40,11 @@ describe('app routes',()=>{
     })
     })
     it('gets all hormone data', async()=>{
+        
         const data = await request(app)
             .get('/api/v1/hormones')
             
-        expect(data.body).toEqual({
+        expect(data.body[0]).toEqual({
             id:expect.any(String),
             hormone:expect.any(String),
             sourceOrgan:expect.any(String),
